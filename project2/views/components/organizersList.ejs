@@ -1,0 +1,26 @@
+<h2>Organizers</h2>
+<div class="row g-3">
+  <% for (let org of organizers) { %>
+
+    <div class="col-4">
+      <div class="card p-1">
+        <h5 class="card-title"><%= org.firstName %></h5>
+        <h5 class="card-title"><%= org.lastName %></h5>
+        <div class="card-text">
+          <div>Phone: <%= org.phone %></div>
+          <div>Address: <%= org.address %></div>
+
+          <div>
+            <a class="btn btn-outline-primary" href="<%= '/organizers/' + org.organizerID + '/edit' %>">Edit</a>
+            <a class="btn btn-outline-danger" href="<%= '/organizers/' + org.organizerID + '/delete' %>">Delete</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  <% } %>
+
+ <%- include("./OrganizersPagination.ejs", { currentPage, lastPage }) %>
+
+</div>

@@ -1,0 +1,25 @@
+<h2>Addresses</h2>
+<div class="row g-3">
+  <% for (let par of addresses) { %>
+
+    <div class="col-4">
+      <div class="card p-1">
+        <h5 class="card-title"><%= par.street1 + ", " + par.street2 + " St." %></h5>
+        <div class="card-text">
+          <div>City: <%= par.city %></div>
+          <div>State: <%= par.state %></div>
+          <div>Zipcode: <%= par.zipCode %></div>
+          <div>
+            <a class="btn btn-outline-primary" href="<%= '/addresses/' + par.id + '/edit' %>">Edit</a>
+            <a class="btn btn-outline-danger" href="<%= '/addresses/' + par.id + '/delete' %>">Delete</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  <% } %>
+
+ <%- include("./ParticipantsPagination.ejs", { currentPage, lastPage }) %>
+
+</div>

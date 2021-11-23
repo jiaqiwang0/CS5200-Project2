@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+  <%- include("../templates/head.ejs") %>
+  <body>
+
+    <%- include("../templates/navBar.ejs") %>
+
+    <div class="container">
+      <h1>Edit Organizer</h1>
+
+
+      <% if (msg) { %>
+        <div class="alert alert-primary">
+          <%= msg %>
+        </div>
+      <% } %>
+
+      <%- include("../components/formEditOrganizer.ejs", { org }) %>
+
+
+    </div>
+
+    <%- include("../templates/footer.ejs") %>
+  </body>
+</html>

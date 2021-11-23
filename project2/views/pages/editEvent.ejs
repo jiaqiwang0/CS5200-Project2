@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <%- include("../templates/head.ejs") %>
+  <body>
+
+    <%- include("../templates/navBar.ejs") %>
+
+    <div class="container">
+      <h1>Edit Events</h1>
+
+
+      <% if (msg) { %>
+        <div class="alert alert-primary">
+          <%= msg %>
+        </div>
+      <% } %>
+      <div class = "row">
+        <div class = "col-5">
+          <%- include("../components/formEditEvent.ejs", { eve }) %>
+          <%- include("../components/formEditEventType.ejs", { eve }) %>
+        </div>
+
+        <div class = "col-7">
+          <%- include("../components/participantList.ejs", { participants }) %>
+        </div>
+      </div>
+
+
+    </div>
+
+    <%- include("../templates/footer.ejs") %>
+  </body>
+</html>

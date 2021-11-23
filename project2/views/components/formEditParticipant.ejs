@@ -1,0 +1,72 @@
+<h2>Participant</h2>
+
+<form
+  action=" <%= '/participants/' + par.participantID + '/edit' %>"
+  method="POST"
+>
+
+  <div>
+    <label class="form-label">
+      Participant ID:
+      <input
+        class="form-control"
+        type="text"
+        name="participantID"
+        value="<%= par.participantID %>"
+        disabled
+      />
+    </label>
+  </div>
+  <div>
+    <label class="form-label">
+      First Name:
+      <input
+        class="form-control"
+        type="text"
+        name="firstName"
+        value="<%= par.firstName %>"
+      />
+    </label>
+  </div>
+
+  <div>
+    <label class="form-label">
+      Last Name:
+      <input
+        class="form-control"
+        type="text"
+        name="lastName"
+        value="<%= par.lastName %>"
+      />
+    </label>
+  </div>
+  <div>
+    <label class="form-label">
+      Phone:
+      <input
+        class="form-control"
+        type="text"
+        name="phone"
+        value="<%= par.phone %>"
+      />
+    </label>
+  </div>
+  <div>
+    <label class="form-label">
+      Email:
+      <input
+        class="form-control"
+        type="text"
+        name="email"
+        value="<%= par.email %>"
+      />
+    </label>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Edit</button>
+  <a
+    class="btn btn-danger"
+    href="<%= '/participants/' + par.participantID + '/delete' %>"
+    >Delete</a
+  >
+</form>

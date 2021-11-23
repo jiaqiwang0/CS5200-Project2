@@ -1,0 +1,12 @@
+<h2>Participants:</h2>
+<%- include("../components/formAddParticipant.ejs", { eve }) %>
+<ul>
+  <% for (let p of participants) { %>
+  <li>
+    <a href="<%= '/participants/' + p.participantID + '/edit'  %>"><%= p.participantID + " " + p.email%></a>
+    <a href="<%= '/events/' + eve.eventID + '/removeParticipant/' + p.participantID   %>">❌</a>
+  </li>
+  <% } %>
+</ul>
+
+
