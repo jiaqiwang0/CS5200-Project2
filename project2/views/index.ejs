@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Events Mongo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <nav>
+
+      </nav>
+
+      <main>
+        <h1>Events Mongo</h1>
+        <div class = "insert">
+          <div class="row">
+            <div class="col-4">
+              <h2>Create an Event</h2>
+              <form action="/insert" method="POST">
+                <div class = "eventType">
+                  <label class="form-label">
+                    Event Name:
+                    <input class="form-control" type="text" name="eventName" />
+                  </label>
+                </div>
+
+                <div class = "eventName">
+                  <label class="form-label">
+                    Event Type:
+                    <input class="form-control" type="text" name="eventType" />
+                  </label>
+                </div>
+
+                <div class = "date">
+                  <label class="form-label">
+                    Date:
+                    <input class="form-control" type="date" name="date" />
+                  </label>
+                </div>
+
+                <div class = "duringTime">
+                  <label class="form-label">
+                    During Time:
+                    <input class="form-control" type="text" name="duringTime" />
+                  </label>
+                </div>
+
+                <div class = "addressId">
+                  <label class="form-label">
+                    AddressId:
+                    <input class="form-control" type="number" name="addressId" />
+                  </label>
+                </div>
+
+                <div class = "description">
+                  <label class="form-label">
+                    Description:
+                    <input class="form-control" type="text" name="description" />
+                  </label>
+                </div>
+
+                <div class = "organizerId">
+                  <label class="form-label">
+                    OrganizerID:
+                    <input class="form-control" type="number" name="organizerId" />
+                  </label>
+                </div>              
+                
+                <button class="btn btn-primary" type="submit">Create</button>
+              </form>
+            </div>
+          </div>
+          <!-- /.col-4 -->
+
+        <!-- /.col-8 -->
+        <div class = "listEvents">
+          <% for (let eve of events) { %>
+            <div class="col-4">
+              <div class="card p-1">
+                <h5 class="card-title"><%= eve.eventName %></h5>
+                <div class="card-text">
+                  <div>Date: <%= eve.date %></div>
+                  <div>Event Type: <%= eve.eventType %></div>
+
+                  <div>
+                    <a class="btn btn-outline-primary" href="<%=  eve._id + '/edit' %>">Edit</a>
+                    <a class="btn btn-outline-danger" href="<%=  eve._id + '/delete' %>">Delete</a>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          <% } %>
+        </div>
+
+      </main>
+
+      <footer>Made by Siluo</footer>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

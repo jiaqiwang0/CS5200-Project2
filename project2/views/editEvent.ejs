@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div class="container">
+      <h1>Edit Events</h1>
+
+      <% if (msg) { %>
+        <div class="alert alert-primary">
+          <%= msg %>
+        </div>
+      <% } %>
+      <div class = "row">
+        <div class = "col-5">
+          <%- include("./components/formEditEvent.ejs", { eve }) %>
+        </div>
+      </div>
+
+
+    </div>
+  </body>
+</html>

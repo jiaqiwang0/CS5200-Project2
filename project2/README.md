@@ -1,23 +1,2 @@
-# nodeExpressMongodbEJS
-
-
-
-## Using it
-
-1) Clone the repo
-2) Install the dependencies
-
-```
-npm install
-```
-
-
-3) Start the server
-
-```
-npm start
-```
-
-4) Point your browser to http://locahost:3000
-
-
+# nodeExpressMongoEJS2
+A basic example made in my class on how to connect Node Express Mongo and EJS
