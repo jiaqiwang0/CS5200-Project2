@@ -1,4 +1,4 @@
-<h2>Addresses</h2>
+<h2>addresses</h2>
 <div class="row g-3">
   <% for (let par of addresses) { %>
 
@@ -8,7 +8,7 @@
         <div class="card-text">
           <div>City: <%= par.city %></div>
           <div>State: <%= par.state %></div>
-          <div>Zipcode: <%= par.zipCode %></div>
+          <div>Zipcode: <%= par.state %></div>
           <div>
             <a class="btn btn-outline-primary" href="<%= '/addresses/' + par.id + '/edit' %>">Edit</a>
             <a class="btn btn-outline-danger" href="<%= '/addresses/' + par.id + '/delete' %>">Delete</a>
