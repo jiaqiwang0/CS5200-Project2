@@ -97,7 +97,7 @@ async function getAddressByID(addressID) {
     //db.city.update({_id:ObjectId("584a13d5b65761be678d4dd4")}, {$set: {"citiName":"Jakarta Pusat"}})
 
     //return await eventsCollection.update({id:participantID}, {$set: {street1:par.street1,street2:par.street2, city:par.city, state:par.state, zipCode:par.zipCode}}).count();
-    return await JSON.parse(JSON.stringify(eventsCollection.find({_id:addressID}).toArray()));
+    return await eventsCollection.find({_id:addressID});
   } finally {
     client.close();
   }
@@ -118,7 +118,7 @@ async function updateAddressByID(addressID, par) {
     //db.city.update({_id:ObjectId("584a13d5b65761be678d4dd4")}, {$set: {"citiName":"Jakarta Pusat"}})
     console.log(addressID)
     //return await eventsCollection.update({_id:addressID}, {$set: {street1:int(par.street1),street2:par.street2, city:par.city, state:par.state}})
-    return await eventsCollection.update({_id:addressID}, {$set: {street1:108000090}})
+    return await eventsCollection.update({_id:addressID}, {$set: {street1:par.street1,street2:par.street2, city:par.city, state:par.state}})
     //return await eventsCollection.find({id:participantID});
   } finally {
     client.close();
@@ -234,9 +234,11 @@ router.get("/addresses/:addressID/edit", async (req, res, next) => {
   const addressID = req.params.addressID;
   const query = req.query.q
   const msg = req.query.msg || null;
+
+  
   try {
 
-    let add = await getAddressByID(addressID);
+    let add = getAddressByID(addressID);
     console.log("-------------jin------"+add);
 
     console.log("edit addresses", {
