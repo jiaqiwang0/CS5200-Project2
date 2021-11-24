@@ -18,3 +18,7 @@ Tasks
 3. run this command, this will restore our db to a db called test on your mongo server.  
 '''mongorestore --host localhost --port 27017 --db test  dump/project2'''
 
+# Work division
+Jiaqi Wang: 
+CRUD of the addresses collection.  
+Query the addresses by city.  
