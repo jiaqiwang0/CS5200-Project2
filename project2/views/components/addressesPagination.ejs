@@ -1,13 +1,13 @@
 
 <% if (lastPage > 2) { %>
 
-  <nav aria-label="Participants Pagination">
+  <nav aria-label="Addresses Pagination">
     <ul class="pagination">
       <li class="page-item">
-        <a class="page-link" href="<%= '/participants/?page=' + (currentPage - 1) %>">Previous</a>
+        <a class="page-link" href="<%= '/addresses/?page=' + (currentPage - 1) %>">Previous</a>
       </li>
       <li class="page-item">
-        <a class="page-link" href="<%= '/participants/?page=' + 1 %>"><%= 1 %></a>
+        <a class="page-link" href="<%= '/addresses/?page=' + 1 %>"><%= 1 %></a>
       </li>
       <li>...</li>
 
@@ -15,7 +15,7 @@
         p <= (currentPage+5);
         p+=1) { %>
         <li class="<%= 'page-item' + ( p === currentPage ? ' active' : '') %>">
-          <a class="page-link" href="<%= '/participants/?page=' + p %>"><%= p %></a>
+          <a class="page-link" href="<%= '/addresses/?page=' + p %>"><%= p %></a>
         </li>
       <% } %>
 
@@ -26,12 +26,12 @@
      -->
       <li>...</li>
       <li class="page-item">
-        <a class="page-link" href="<%= '/participants/?page=' + lastPage %>"
+        <a class="page-link" href="<%= '/addresses/?page=' + lastPage %>"
           ><%= lastPage %></a
         >
       </li>
       <li class="page-item">
-        <a class="page-link" href="<%= '/participants/?page=' + (currentPage + 1) %>">Next</a>
+        <a class="page-link" href="<%= '/addresses/?page=' + (currentPage + 1) %>">Next</a>
       </li>
     </ul>
   </nav>

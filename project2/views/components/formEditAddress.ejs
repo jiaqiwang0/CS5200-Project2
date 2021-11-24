@@ -1,64 +1,64 @@
-<h2>Participant</h2>
+<h2>Address</h2>
 
 <form
-  action=" <%= '/participants/' + par.participantID + '/edit' %>"
+  action=" <%= '/addresses/' + add._id + '/edit' %>"
   method="POST"
 >
 
   <div>
     <label class="form-label">
-      Participant ID:
+      ID:
       <input
         class="form-control"
         type="text"
-        name="participantID"
-        value="<%= par.participantID %>"
+        name="id"
+        value="<%= add.id %>"
         disabled
       />
     </label>
   </div>
   <div>
     <label class="form-label">
-      First Name:
+      Street Number:
       <input
         class="form-control"
         type="text"
-        name="firstName"
-        value="<%= par.firstName %>"
+        name="street1"
+        value="<%= add.street1 %>"
       />
     </label>
   </div>
 
   <div>
     <label class="form-label">
-      Last Name:
+      Street Name:
       <input
         class="form-control"
         type="text"
-        name="lastName"
-        value="<%= par.lastName %>"
+        name="street2"
+        value="<%= add.street2 %>"
       />
     </label>
   </div>
   <div>
     <label class="form-label">
-      Phone:
+      City:
       <input
         class="form-control"
         type="text"
-        name="phone"
-        value="<%= par.phone %>"
+        name="city"
+        value="<%= add.city %>"
       />
     </label>
   </div>
   <div>
     <label class="form-label">
-      Email:
+      State:
       <input
         class="form-control"
         type="text"
-        name="email"
-        value="<%= par.email %>"
+        name="state"
+        value="<%= add.state %>"
       />
     </label>
   </div>
@@ -66,7 +66,7 @@
   <button type="submit" class="btn btn-primary">Edit</button>
   <a
     class="btn btn-danger"
-    href="<%= '/participants/' + par.participantID + '/delete' %>"
+    href="<%= '/addresses/' + add._id + '/delete' %>"
     >Delete</a
   >
 </form>

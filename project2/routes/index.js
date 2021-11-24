@@ -55,7 +55,7 @@ async function getAddressesbyCityCount(query) {
     const eventsCollection = db.collection("addresses");
 
     //return await eventsCollection.find({city:query}).count();
-    return await eventsCollection.find().count();
+    return await eventsCollection.find({city:query}).count();
   } finally {
     await client.close();
   }
@@ -74,16 +74,16 @@ async function getAddressesByCitytName(query, page, pageSize) {
     db = client.db("project2");
     const eventsCollection = db.collection("addresses");
     let result = eventsCollection.find({city:query}).toArray();
-    console.log(result.toString())
+    //console.log(result.toString())
     //return await eventsCollection.find({city:query}).toArray();
-    return await eventsCollection.find().sort({ _id: -1 }).toArray();
+    return await eventsCollection.find({city:query}).sort({ _id: -1 }).toArray();
   } finally {
     await client.close();
   }
 }
 
-async function getAddressByID(participantID, par) {
-  console.log("getAddressByID", participantID);
+async function getAddressByID(addressID) {
+  console.log("getAddressByID", addressID);
 
   try {
     const uri = "mongodb://localhost:27017";
@@ -96,17 +96,59 @@ async function getAddressByID(participantID, par) {
     const eventsCollection = db.collection("addresses");
     //db.city.update({_id:ObjectId("584a13d5b65761be678d4dd4")}, {$set: {"citiName":"Jakarta Pusat"}})
 
-    return await eventsCollection.update({id:query}, {$set: {street1:par.street1,street2:par.street2, city:par.city, state:par.state, zipCode:par.zipCode}}).count();
+    //return await eventsCollection.update({id:participantID}, {$set: {street1:par.street1,street2:par.street2, city:par.city, state:par.state, zipCode:par.zipCode}}).count();
+    return await JSON.parse(JSON.stringify(eventsCollection.find({_id:addressID}).toArray()));
   } finally {
-    await stmt1.finalize();
-    await stmt2.finalize();
-    db.close();
+    client.close();
+  }
+}
+
+async function updateAddressByID(addressID, par) {
+  console.log("getAddressByID", addressID);
+
+  try {
+    const uri = "mongodb://localhost:27017";
+    client = new MongoClient(uri);
+    await client.connect();
+
+    console.log("Connected to Mongo Server");
+
+    db = client.db("project2");
+    const eventsCollection = db.collection("addresses");
+    //db.city.update({_id:ObjectId("584a13d5b65761be678d4dd4")}, {$set: {"citiName":"Jakarta Pusat"}})
+    console.log(addressID)
+    //return await eventsCollection.update({_id:addressID}, {$set: {street1:int(par.street1),street2:par.street2, city:par.city, state:par.state}})
+    return await eventsCollection.update({_id:addressID}, {$set: {street1:108000090}})
+    //return await eventsCollection.find({id:participantID});
+  } finally {
+    client.close();
   }
 }
 
 
-async function deleteAddressByID(participantID) {
-  console.log("deleteAddressByID", participantID);
+async function deleteAddressByID(query) {
+  console.log("deleteAddressByID", query);
+
+  try {
+    const uri = "mongodb://localhost:27017";
+    client = new MongoClient(uri);
+    await client.connect();
+
+    console.log("Connected to Mongo Server");
+
+    db = client.db("project2");
+    const eventsCollection = db.collection("addresses");
+    console.log(query)
+    return await eventsCollection.remove({_id:query});
+  } finally {
+    
+    client.close();
+  }
+}
+
+
+async function createAddress(add) {
+  console.log("createAddress", add);
 
   try {
     const uri = "mongodb://localhost:27017";
@@ -118,33 +160,10 @@ async function deleteAddressByID(participantID) {
     db = client.db("project2");
     const eventsCollection = db.collection("addresses");
 
-    return await eventsCollection.remove({id:query}).count();
+    return await eventsCollection.insert({id:add.id, street1:add.street1,street2:add.street2, city:add.city, state:add.state, zipCode:add.zipCode});
   } finally {
-    await stmt1.finalize();
-    await stmt2.finalize();
-    db.close();
-  }
-}
-
-
-async function createAddress(par) {
-  console.log("createAddress", par);
-
-  try {
-    const uri = "mongodb://localhost:27017";
-    client = new MongoClient(uri);
-    await client.connect();
-
-    console.log("Connected to Mongo Server");
-
-    db = client.db("project2");
-    const eventsCollection = db.collection("addresses");
-
-    return await eventsCollection.update({id:par.id, street1:par.street1,street2:par.street2, city:par.city, state:par.state, zipCode:par.zipCode});
-  } finally {
-    await stmt1.finalize();
-    await stmt2.finalize();
-    db.close();
+    
+    client.close();
   }
 }
 
@@ -178,7 +197,7 @@ router.get("/addresses", async (req, res, next) => {
   try {
     let total = await getAddressesCount(query);
     let addresses = await getAddresses(query, page, pageSize);
-    res.render("./pages/participants", {
+    res.render("./pages/addresses", {
       addresses,
       query,
       msg,
@@ -190,7 +209,7 @@ router.get("/addresses", async (req, res, next) => {
   }
 });
 
-router.get("/addresses/searchAddressesByOrginizer", async (req, res, next) => {
+router.get("/addresses/searchAddressesByCity", async (req, res, next) => {
   const query = req.query.q || "";
   const page = +req.query.page || 1;
   const pageSize = +req.query.pageSize || 24;
@@ -198,9 +217,9 @@ router.get("/addresses/searchAddressesByOrginizer", async (req, res, next) => {
   //uery = "Flatley-Stehr"
   try {
     let total = await getAddressesbyCityCount(query);
-    let participants = await getAddressesByCitytName(query, page, pageSize);
-    res.render("./pages/participants", {
-      participants,
+    let addresses = await getAddressesByCitytName(query, page, pageSize);
+    res.render("./pages/addresses", {
+      addresses,
       query,
       msg,
       currentPage: page,
@@ -213,20 +232,21 @@ router.get("/addresses/searchAddressesByOrginizer", async (req, res, next) => {
 
 router.get("/addresses/:addressID/edit", async (req, res, next) => {
   const addressID = req.params.addressID;
-
+  const query = req.query.q
   const msg = req.query.msg || null;
   try {
 
-    let par = await getAddressByID(addressID);
+    let add = await getAddressByID(addressID);
+    console.log("-------------jin------"+add);
 
     console.log("edit addresses", {
-      par,
+      add,
       msg,
     });
 
 
-    res.render("./pages/editAddresses", {
-      par,
+    res.render("./pages/editAddress", {
+      add,
       msg,
     });
   } catch (err) {
@@ -234,20 +254,40 @@ router.get("/addresses/:addressID/edit", async (req, res, next) => {
   }
 });
 
+router.post("/addresses/:addressID/edit", async (req, res, next) => {
+  const addressID = req.params.addressID;
+  const add = req.body;
+
+  try {
+
+    let updateResult = await updateAddressByID(addressID, add);
+    console.log("update", updateResult);
+
+    if (updateResult) {
+      res.redirect("/addresses/?msg=Updated");
+    } else {
+      res.redirect("/addresses/?msg=Error Updating");
+    }
+
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get("/addresses/:addressID/delete", async (req, res, next) => {
   const addressID = req.params.addressID;
-
+  console.log(addressID)
   const msg = req.query.msg || null;
   try {
 
-    let par = await deleteAddressByID(addressID);
+    let deleteResult = await deleteAddressByID(addressID);
 
     console.log("delete addresses", {
-      par,
+      deleteResult,
       msg,
     });
 
-    if (deleteResult && deleteResult.changes === 1) {
+    if (deleteResult ) {
       res.redirect("/addresses/?msg=Deleted");
     } else {
       res.redirect("/addresses/?msg=Error Deleting");
@@ -259,15 +299,15 @@ router.get("/addresses/:addressID/delete", async (req, res, next) => {
 });
 
 
-router.post("/createAddresses", async (req, res, next) => {
-  const par = req.body;
+router.post("/createAddress", async (req, res, next) => {
+  const add = req.body;
   console.log("get request body");
 
   try {
-    const insertPar = await createAddress(par);
+    const insertAdd = await createAddress(add);
 
-    console.log("Inserted", insertPar);
-    res.redirect("/participants/?msg=Inserted");
+    console.log("Inserted", insertAdd);
+    res.redirect("/addresses/?msg=Inserted");
   } catch (err) {
     console.log("Error inserting", err);
     next(err);
