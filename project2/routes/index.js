@@ -16,7 +16,7 @@ async function getAddresses(query, page, pageSize) {
     db = client.db("project2");
     const eventsCollection = db.collection("addresses");
 
-    return await eventsCollection.find(query).sort({ _id: -1 }).toArray();
+    return await eventsCollection.find().sort({ _id: -1 }).toArray();
   } finally {
     await client.close();
   }
@@ -35,7 +35,7 @@ async function getAddressesCount(query) {
       db = client.db("project2");
       const eventsCollection = db.collection("addresses");
   
-      return await eventsCollection.find(query).count();
+      return await eventsCollection.find().count();
     } finally {
       await client.close();
     }
@@ -150,7 +150,7 @@ async function createAddress(par) {
 
 
 /* GET home page. */
-router.get("/addresses", async (req, res, next) => {
+router.get("/participants", async (req, res, next) => {
   const query = req.query.q || {};
   const page = +req.query.page || 1;
   const pageSize = +req.query.pageSize || 24;

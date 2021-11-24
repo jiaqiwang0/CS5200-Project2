@@ -1,17 +1,18 @@
-<h2>addresses</h2>
+<h2>Participants</h2>
 <div class="row g-3">
-  <% for (let par of addresses) { %>
+  <% for (let par of participants) { %>
 
     <div class="col-4">
       <div class="card p-1">
-        <h5 class="card-title"><%= par.street1 + ", " + par.street2 + " St." %></h5>
+        <h5 class="card-title"><%= par.firstName %></h5>
+        <h5 class="card-title"><%= par.lastName %></h5>
         <div class="card-text">
-          <div>City: <%= par.city %></div>
-          <div>State: <%= par.state %></div>
-          <div>Zipcode: <%= par.state %></div>
+          <div>Phone: <%= par.phone %></div>
+          <div>Email: <%= par.email %></div>
+
           <div>
-            <a class="btn btn-outline-primary" href="<%= '/addresses/' + par.id + '/edit' %>">Edit</a>
-            <a class="btn btn-outline-danger" href="<%= '/addresses/' + par.id + '/delete' %>">Delete</a>
+            <a class="btn btn-outline-primary" href="<%= '/participants/' + par.participantID + '/edit' %>">Edit</a>
+            <a class="btn btn-outline-danger" href="<%= '/participants/' + par.participantID + '/delete' %>">Delete</a>
           </div>
         </div>
       </div>

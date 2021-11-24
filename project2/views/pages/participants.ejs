@@ -6,7 +6,7 @@
     <%- include("../templates/navBar.ejs") %>
 
     <div class="container">
-      <h1>Addresses Manager</h1>
+      <h1>Participant Manager</h1>
 
 
       <% if (msg) { %>
@@ -20,7 +20,7 @@
         <div class="col-8">
           <%- include("../components/parSearchBar.ejs", { query }) %>
           <%- include("../components/SearchParByEventBar.ejs", { query }) %>
-          <%- include("../components/participantsList.ejs", { addresses, currentPage, lastPage }) %>
+          <%- include("../components/participantsList.ejs", { participants, currentPage, lastPage }) %>
         </div>
         <div class="col-4">
           <%- include("../components/formCreateParticipant.ejs") %>
