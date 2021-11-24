@@ -19,6 +19,6 @@ Tasks
 '''mongorestore --host localhost --port 27017 --db test  dump/project2'''
 
 # Work division
-Jiaqi Wang: 
+Jiaqi Wang:  
 CRUD of the addresses collection.  
 Query the addresses by city.  
